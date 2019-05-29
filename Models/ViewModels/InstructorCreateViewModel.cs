@@ -1,20 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentExercises;
-using StudentExercisesAPI.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
 namespace StudentExercisesMVC.Models.ViewModels
 {
-    public class StudentCreateViewModel
+    public class InstructorCreateViewModel
     {
-        public StudentCreateViewModel()
+        public InstructorCreateViewModel()
         {
             Cohorts = new List<Cohort>();
         }
 
-        public StudentCreateViewModel(string connectionString)
+        public InstructorCreateViewModel(string connectionString)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -22,8 +21,8 @@ namespace StudentExercisesMVC.Models.ViewModels
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT c.Id, c.CohortName
-                                        FROM Cohort c";
+                    cmd.CommandText = @"SELECT Id, CohortName
+                                        FROM Cohort";
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     Cohorts = new List<Cohort>();
@@ -41,7 +40,7 @@ namespace StudentExercisesMVC.Models.ViewModels
             }
         }
 
-        public Student Student { get; set; }
+        public Instructor Instructor { get; set; }
         public List<Cohort> Cohorts { get; set; }
 
         public List<SelectListItem> CohortOptions

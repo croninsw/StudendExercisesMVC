@@ -1,8 +1,6 @@
 using StudentExercises;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace StudentExercisesAPI.Models
 {
@@ -24,7 +22,6 @@ namespace StudentExercisesAPI.Models
         public Cohort Cohort { get; set; }
 
         public List<Exercise> Exercises = new List<Exercise>();
-
 
         public override string ToString()
         {

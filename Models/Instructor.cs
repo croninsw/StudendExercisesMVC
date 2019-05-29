@@ -1,38 +1,36 @@
 using StudentExercisesAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudentExercises
 {
-    public class Instructor : NSSPerson
+    public class Instructor
     {
-        // private classes to set instructors cohort
-        private Cohort _cohort { get; set; }
+        public int Id { get; set; }
 
-        // public class to allow for a instructor to be moved between cohorts
-        public Cohort cohort
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Slack Name")]
+        public string SlackName { get; set; }
+
+        [Display(Name = "Specialty")]
+        public string Specialty { get; set; }
+
+        public int CohortId { get; set; }
+
+        public Cohort Cohort { get; set; }
+
+        public List<Exercise> Exercises = new List<Exercise>();
+
+        public override string ToString()
         {
-            get
-            {
-                return _cohort;
-            }
-            set
-            {
-                if (_cohort != null)
-                {
-                    _cohort.Instructors.Remove(this);
-                    _cohort = value;
-                    _cohort.Instructors.Add(this);
-                }
-                else
-                {
-                    _cohort = value;
-                    _cohort.Instructors.Add(this);
-                }
-            }
+            return $"{FirstName} {LastName} @{SlackName}";
         }
-
-        public Instructor(string FirstName, string LastName, string SlackName) : base(FirstName, LastName, SlackName){}
 
         // method to add exercise to list of exercises instructor is currently workin on
         public void AddExercise(Student student, Exercise exercise)
